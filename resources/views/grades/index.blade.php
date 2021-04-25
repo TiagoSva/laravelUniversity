@@ -2,15 +2,15 @@
 @section('title','Grades')
 @section('content')
 
-<!-- <?php
-        @session_start();
+<?php
+/*  @session_start();
         if (@$_SESSION['id'] == null) {
             echo "<script>window.location='./'</script>";
-        }
-        if (!isset($id)) {
-            $id = "";
-        }
-        ?> -->
+        }*/
+if (!isset($id)) {
+    $id = "";
+}
+?>
 
 <a href="{{route('grades.create')}}" type="button" class="btn btn-primary mt-4 mb-4">Inserir Nota</a>
 <div class="card shadow mb-4">
@@ -34,7 +34,7 @@
                         <td>{{$grade->teacher_name}}</td>
                         <td>{{$grade->grade}}</td>
                         <td><a href="{{route('grades.edit', $grade->id_course.-$grade->id_student.-$grade->id_teacher)}}"><i class="fas fa-edit text-info me-2"></i></a>
-                            <a href="{{route('grades.remove', $grade->grade)}}"><i class="fas fa-trash text-danger me-2"></i></a>
+                            <a href="{{route('grades.remove', $grade->id_course.-$grade->id_student.-$grade->id_teacher)}}"><i class="fas fa-trash text-danger me-2"></i></a>
                         </td>
                     </tr>
 
@@ -77,13 +77,13 @@
         </div>
     </div>
 </div>
-<!-- <?php
-        if ($id != "") {
-            echo "<script>
+<?php
+if ($id != "") {
+    echo "<script>
     var myModal = new bootstrap.Modal ( document.getElementById('exampleModal'));
     myModal.show();
     </script>";
-        }
-        ?> -->
+}
+?>
 
 @endsection

@@ -37,7 +37,6 @@ class GradeController extends Controller
         $courses = Course::orderBy('name', 'asc')->paginate();
 
         return view('grades.create', ['students' => $students, 'teachers' => $teachers, 'courses' => $courses]);
-        // return view('grades.create', ['students' => $students, 'teachers' => $teachers, 'courses' => $courses]);
     }
     //add grade to database
     public function insert(Request $request)
@@ -60,42 +59,72 @@ class GradeController extends Controller
         $id_student = $arrayIdGrades[1];
         $id_teacher = $arrayIdGrades[2];
 
-        $students = Student::orderBy('name', 'asc')->paginate();
-        $teachers = Teacher::orderBy('name', 'asc')->paginate();
-        $courses = Course::orderBy('name', 'asc')->paginate();
+        $students = Student::where('id', '=', $id_student)->orderBy('name', 'asc')->paginate();
+        $teachers = Teacher::where('id', '=', $id_teacher)->orderBy('name', 'asc')->paginate();
+        $courses = Course::where('id', '=', $id_course)->orderBy('name', 'asc')->paginate();
 
-
-        $grade = DB::table('grades')->where("id_course = {$id_course}")
-
+        error_log($id_course);
+        $grade = DB::table('grades')
+            ->where('id_course', '=', $id_course)
+            ->where('id_student', '=', $id_student)
+            ->where('id_teacher', '=', $id_teacher)
             ->select('grades.*')
-            ->paginate();
-
-        error_log($grade[0]->grade);
+            ->paginate()[0];
 
 
 
-        return view('grades.edit');
+
+
+        return view('grades.edit',  ['grade' => $grade, 'students' => $students, 'teachers' => $teachers, 'courses' => $courses]);
     }
     // update grade in database
-    public function save(Request $request, Grade $grade)
+    public function save(Request $request, string $grade_id)
     {
-        $grade->grade = $request->grade;
-        $grade->save();
+        $arrayIdGrades = explode('-', $grade_id);
+        $id_course = $arrayIdGrades[0];
+        $id_student = $arrayIdGrades[1];
+        $id_teacher = $arrayIdGrades[2];
+
+        // $grade = new Grade();
+        // $grade = Grade::where('id_student', '=', $id_student, 'and', 'id_teacher', '=', $id_teacher, 'and', 'id_course', '=', $id_course)->select('grades.*');
+
+        $grade = DB::table('grades')
+            ->where('id_course', '=', $id_course)
+            ->where('id_student', '=', $id_student)
+            ->where('id_teacher', '=', $id_teacher)
+            ->update(['grade' => $request->grade, 'status' => 1]);
+
+        // $grade->id_course = $id_course;
+        // $grade->id_student = $id_student;
+        // $grade->id_teacher = $id_teacher;
+        // $grade->status = 1;
+
+        // $grade->grade = $request->grade;
+        // $grade->save();
         return redirect()->route('grades.index');
     }
     // delete grade
-    public function delete(Grade $grade)
+    public function delete(string $grade_id)
     {
-        $id = $grade->id;
-        Grade::table('grades')->where('grade', $id)->delete();
-        $grade->delete();
+
+        $arrayIdGrades = explode('-', $grade_id);
+        $id_course = $arrayIdGrades[0];
+        $id_student = $arrayIdGrades[1];
+        $id_teacher = $arrayIdGrades[2];
+
+        DB::table('grades')
+            ->where('id_course', '=', $id_course)
+            ->where('id_student', '=', $id_student)
+            ->where('id_teacher', '=', $id_teacher)
+            ->delete();
         // delete grades from grades
         return redirect()->route('grades.index');
     }
     // remove grade from database
-    public function remove($id)
+    public function remove(string $grade_id)
     {
-        $grades = Grade::orderBy('name', 'asc')->paginate();
-        return view('grades.index', ['grades' => $grades, 'id' => $id]);
+        $grade = Grade::orderBy('grade', 'asc')->paginate();
+
+        return view('grades.index', ['grades' => $grade, 'id' => $grade_id]);
     }
 }
