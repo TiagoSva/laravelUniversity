@@ -18,17 +18,17 @@ if (!isset($id)) {
             <table class="table table-bordered" id="dataTable" width="100%">
                 <thead>
                     <tr>
-                        <th>Nome Professor</th>
-                        <th>Email</th>
-                        <th></th>
+                        <th class="text-center">Nome Professor</th>
+                        <th class="text-center">Email</th>
+                        <th class="text-center"></th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($teachers as $teacher)
                     <tr>
-                        <td>{{$teacher->name}}</td>
-                        <td>{{$teacher->email}}</td>
-                        <td><a href="{{route('teachers.edit', $teacher)}}"><i class="fas fa-edit text-info me-2"></i></a>
+                        <td class="text-center">{{$teacher->name}}</td>
+                        <td class="text-center">{{$teacher->email}}</td>
+                        <td class="text-center"><a href="{{route('teachers.edit', $teacher)}}"><i class="fas fa-edit text-info me-2"></i></a>
                             <a href="{{route('teachers.remove', $teacher)}}"><i class="fas fa-trash text-danger me-2"></i></a>
                         </td>
                     </tr>

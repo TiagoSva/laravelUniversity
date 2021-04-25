@@ -6,6 +6,14 @@
     @csrf
     @method('put')
     <div class="row mb-4">
+
+        <div class="fw-bold mt-2 mb-1"><label  for="grade">Status</label></div>
+
+        <div class="form-check form-switch mb-4 ms-3">
+            <input style="height: 1.5em; width: 3em;" class="form-check-input me-2" type="checkbox" id="flexSwitchCheckDefault" name="status" <?php echo $grade->status === 1  ? 'checked' : '' ?>>
+            <label class="form-check-label" for="flexSwitchCheckDefault">Marque para deixar a Grade com o status ativo</label>
+          </div>
+
         <div><label for="grade">Nota</label></div>
         <div><input type="text" name="grade" class="form-control" id="grade" value={{$grade->grade}}></div>
 

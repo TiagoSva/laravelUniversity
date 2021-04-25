@@ -18,19 +18,19 @@ if (!isset($id)) {
             <table class="table table-bordered" id="dataTable" width="100%">
                 <thead>
                     <tr>
-                        <th>Nome</th>
-                        <th>Descrição Curso</th>
-                        <th>Creditos</th>
-                        <th></th>
+                        <th class="text-center">Nome</th>
+                        <th class="text-center">Descrição Curso</th>
+                        <th class="text-center">Creditos</th>
+                        <th class="text-center"></th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($courses as $course)
                     <tr>
-                        <td>{{$course->name}}</td>
-                        <td>{{$course->description}}</td>
-                        <td>{{$course->credits}}</td>
-                        <td><a href="{{route('courses.edit', $course)}}"><i class="fas fa-edit text-info me-2"></i></a>
+                        <td class="text-center">{{$course->name}}</td>
+                        <td class="text-center">{{$course->description}}</td>
+                        <td class="text-center">{{$course->credits}}</td>
+                        <td class="text-center"><a href="{{route('courses.edit', $course)}}"><i class="fas fa-edit text-info me-2"></i></a>
                             <a href="{{route('courses.remove', $course)}}"><i class="fas fa-trash text-danger me-2"></i></a>
                         </td>
                     </tr>

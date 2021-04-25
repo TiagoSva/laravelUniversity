@@ -19,21 +19,23 @@ if (!isset($id)) {
             <table class="table table-bordered" id="dataTable" width="100%">
                 <thead>
                     <tr>
-                        <th>Curso</th>
-                        <th>Aluno</th>
-                        <th>Professor</th>
-                        <th>Nota</th>
-                        <th></th>
+                        <th class="text-center">Status</th>
+                        <th class="text-center">Curso</th>
+                        <th class="text-center">Aluno</th>
+                        <th class="text-center">Professor</th>
+                        <th class="text-center">Nota</th>
+                        <th class="text-center"></th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($grades as $grade)
                     <tr>
-                        <td>{{$grade->course_name}}</td>
-                        <td>{{$grade->student_name}}</td>
-                        <td>{{$grade->teacher_name}}</td>
-                        <td>{{$grade->grade}}</td>
-                        <td><a href="{{route('grades.edit', $grade->id_course.-$grade->id_student.-$grade->id_teacher)}}"><i class="fas fa-edit text-info me-2"></i></a>
+                        <td class="text-center"><i class=" fas <?php echo $grade->status === 1 ? 'fa-check-square text-success' : 'fa-window-close text-danger'?>"></i></td>
+                        <td class="text-center">{{$grade->course_name}}</td>
+                        <td class="text-center">{{$grade->student_name}}</td>
+                        <td class="text-center">{{$grade->teacher_name}}</td>
+                        <td class="text-center">{{$grade->grade}}</td>
+                        <td class="text-center"><a href="{{route('grades.edit', $grade->id_course.-$grade->id_student.-$grade->id_teacher)}}"><i class="fas fa-edit text-info me-2"></i></a>
                             <a href="{{route('grades.remove', $grade->id_course.-$grade->id_student.-$grade->id_teacher)}}"><i class="fas fa-trash text-danger me-2"></i></a>
                         </td>
                     </tr>

@@ -59,6 +59,8 @@ class GradeController extends Controller
         $id_student = $arrayIdGrades[1];
         $id_teacher = $arrayIdGrades[2];
 
+
+
         $students = Student::where('id', '=', $id_student)->orderBy('name', 'asc')->paginate();
         $teachers = Teacher::where('id', '=', $id_teacher)->orderBy('name', 'asc')->paginate();
         $courses = Course::where('id', '=', $id_course)->orderBy('name', 'asc')->paginate();
@@ -85,14 +87,17 @@ class GradeController extends Controller
         $id_student = $arrayIdGrades[1];
         $id_teacher = $arrayIdGrades[2];
 
+
         // $grade = new Grade();
         // $grade = Grade::where('id_student', '=', $id_student, 'and', 'id_teacher', '=', $id_teacher, 'and', 'id_course', '=', $id_course)->select('grades.*');
 
-        $grade = DB::table('grades')
+        $statusValue = $request->status === 'on' ? 1 : 0;
+
+        DB::table('grades')
             ->where('id_course', '=', $id_course)
             ->where('id_student', '=', $id_student)
             ->where('id_teacher', '=', $id_teacher)
-            ->update(['grade' => $request->grade, 'status' => 1]);
+            ->update(['grade' => $request->grade, 'status' => $statusValue ]);
 
         // $grade->id_course = $id_course;
         // $grade->id_student = $id_student;

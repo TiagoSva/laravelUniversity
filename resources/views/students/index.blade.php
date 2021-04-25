@@ -19,19 +19,19 @@ if (!isset($id)) {
             <table class="table table-bordered" id="dataTable" width="100%">
                 <thead>
                     <tr>
-                        <th>Nome Aluno</th>
-                        <th>Email</th>
-                        <th>Data Nascimento</th>
-                        <th></th>
+                        <th class="text-center">Nome Aluno</th>
+                        <th class="text-center">Email</th>
+                        <th class="text-center">Data Nascimento</th>
+                        <th class="text-center"></th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($students as $student)
                     <tr>
-                        <td>{{$student->name}}</td>
-                        <td>{{$student->email}}</td>
-                        <td>{{$student->birthday}}</td>
-                        <td><a href="{{route('students.edit', $student)}}"><i class="fas fa-edit text-info me-2"></i></a>
+                        <td class="text-center">{{$student->name}}</td>
+                        <td class="text-center">{{$student->email}}</td>
+                        <td class="text-center">{{$student->birthday}}</td>
+                        <td class="text-center"><a href="{{route('students.edit', $student)}}"><i class="fas fa-edit text-info me-2"></i></a>
                             <a href="{{route('students.remove', $student)}}"><i class="fas fa-trash text-danger me-2"></i></a>
                         </td>
                     </tr>
